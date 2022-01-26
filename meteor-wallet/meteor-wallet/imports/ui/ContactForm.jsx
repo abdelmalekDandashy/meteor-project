@@ -1,5 +1,5 @@
 import React from "react";
-import {ContactsCollection} from "../api/ContactsCollection";
+import { ContactsCollection } from "../api/ContactsCollection";
 
 export const ContactForm = () => {
   const [name, setName] = React.useState(""); // Formik
@@ -11,13 +11,16 @@ export const ContactForm = () => {
     setName("");
     setEmail("");
     setImageUrl("");
-  }
+  };
 
   return (
     <form className="mt-6">
       <div className="grid grid-cols-6 gap-6">
         <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700"
+          >
             Name
           </label>
           <input
@@ -30,7 +33,10 @@ export const ContactForm = () => {
         </div>
 
         <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
             Email
           </label>
           <input
@@ -43,7 +49,10 @@ export const ContactForm = () => {
         </div>
 
         <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-          <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="imageUrl"
+            className="block text-sm font-medium text-gray-700"
+          >
             Image URL
           </label>
           <input
@@ -65,5 +74,5 @@ export const ContactForm = () => {
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
