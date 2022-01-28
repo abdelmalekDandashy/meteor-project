@@ -1,6 +1,8 @@
 import React from "react";
 import { ContactsCollection } from "../api/ContactsCollection";
 import { useTracker } from "meteor/react-meteor-data";
+import Button from "@mui/material/Button";
+import { Meteor } from "meteor/meteor";
 
 export const ContactList = () => {
   const contacts = useTracker(() => {
@@ -8,8 +10,13 @@ export const ContactList = () => {
   });
 
   const deleteContact = (id) => {
-    ContactsCollection.remove({ _id: id });
+    Meteor.call("deleteContact", { _id: id });
   };
+
+  // const deleteContact = (id) => {
+  //   //// ContactsCollection.remove({ _id: id });
+  //   Meteor.call("deleteContact", { Number(id) });
+  // };
 
   return (
     <div>
@@ -43,15 +50,14 @@ export const ContactList = () => {
                   </p>
                 </div>
               </div>
-              <button
-                type="button"
+              <Button
+                variant="contained"
                 onClick={() => {
                   deleteContact(person._id);
                 }}
-                className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
               >
                 Delete Contact
-              </button>
+              </Button>
             </li>
           ))}
         </ul>
