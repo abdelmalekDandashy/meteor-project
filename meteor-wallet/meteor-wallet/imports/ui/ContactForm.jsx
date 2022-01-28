@@ -1,5 +1,6 @@
 import React from "react";
 import { ContactsCollection } from "../api/ContactsCollection";
+import { Meteor } from "meteor/meteor";
 
 export const ContactForm = () => {
   const [name, setName] = React.useState(""); // Formik
@@ -7,10 +8,15 @@ export const ContactForm = () => {
   const [imageUrl, setImageUrl] = React.useState("");
 
   const saveContact = () => {
-    ContactsCollection.insert({ name, email, imageUrl });
-    setName("");
-    setEmail("");
-    setImageUrl("");
+    Meteor.call("insertContact", { name, email, imageUrl }, (errorResponse) => {
+      if (errorResponse) {
+        alert(errorResponse.error);
+      } else {
+        setName("");
+        setEmail("");
+        setImageUrl("");
+      }
+    });
   };
 
   return (
