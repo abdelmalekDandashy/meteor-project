@@ -2,29 +2,22 @@ import React from "react";
 import { ContactsCollection } from "../api/ContactsCollection";
 import Button from "@mui/material/Button";
 import { Meteor } from "meteor/meteor";
-import {
-  useTracker,
-  // useSubscribe
-} from "meteor/react-meteor-data";
+import { useTracker, useSubscribe, useFind } from "meteor/react-meteor-data";
 
 export const ContactList = () => {
-  const contacts = useTracker(() => {
-    // const isLoading = useSubscribe("allContacts");
-    Meteor.subscribe("allContacts");
-    return ContactsCollection.find({}, { sort: { createdAt: -1 } }).fetch();
-  });
+  const isLoading = useSubscribe("contacts");
+  const contacts = useFind(() =>
+    ContactsCollection.find({}, { sort: { createdAt: -1 } })
+  );
 
   const deleteContact = (id) => {
     Meteor.call("deleteContact", { _id: id });
   };
 
-  // const deleteContact = (id) => {
-  //   //// ContactsCollection.remove({ _id: id });
-  //   Meteor.call("deleteContact", { Number(id) });
-  // };
-  // if (isLoading) {
-  //   return <h1>loading...</h1>;
-  // }
+  console.log(isLoading());
+  if (isLoading()) {
+    return <h1>Loading...</h1>;
+  }
   return (
     <div>
       <div className="mt-10">
